@@ -1,4 +1,4 @@
-CREATE TABLE public.params (
+CREATE TABLE params (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	"name" varchar NOT NULL,
 	req bool NULL DEFAULT true,
@@ -10,4 +10,4 @@ CREATE TABLE public.params (
 
 -- public.params foreign keys
 
-ALTER TABLE public.params ADD CONSTRAINT params_fk FOREIGN KEY ("type") REFERENCES public.typevar(id);
+ALTER TABLE params ADD CONSTRAINT params_fk FOREIGN KEY ("type") REFERENCES public.typevar(id);
