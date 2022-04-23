@@ -7,7 +7,7 @@ CREATE TABLE schema_table (
 	button int NULL,
 	w int NULL,
 	CONSTRAINT schema_table_pk PRIMARY KEY (id),
-	CONSTRAINT schema_table_fk FOREIGN KEY (id_components) REFERENCES component(id)
+	CONSTRAINT schema_table_fk FOREIGN KEY (id_components) REFERENCES component_example(id)
 );
 
 -- Column comments
