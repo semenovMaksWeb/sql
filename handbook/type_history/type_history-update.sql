@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION type_history_update(
  LANGUAGE plpgsql
 AS $function$
 	begin
-        UPDATE _handbook.%1$s SET "name"=%L WHERE id=%2$s;
+        UPDATE type_history SET "name"=_name WHERE id=%2$s;
 	END;
 $function$
 ;

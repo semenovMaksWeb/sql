@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION type_history_create(
  LANGUAGE plpgsql
 AS $function$
 	begin
-    	INSERT INTO type_history (name) VALUES(%L);
+    	INSERT INTO type_history (name) VALUES(_name);
 	END;
 $function$
 ;
