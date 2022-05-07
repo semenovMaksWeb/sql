@@ -21,12 +21,27 @@ left join (
 			'params', cp.params,
 			'api', config_api,
 			'event', component_callback,
-			'schema_table', "schema" 
-			)) components
+			'schema_table', "schema",
+			'schema_form', schema_form
+			)
+		) components
 	from components.screen_components sc
 	left join components.component_example ce on ce.id = sc.id
 	left join components.component c on c.id = ce.id_component
--- схема для таблиц
+	-- схема для форм
+	left join (
+		select sf.id_form,
+ 			json_agg(
+				json_build_object(
+					'id_components',sf.id_components,
+					'id_parent', sf.id_parent
+				)
+			) schema_form
+		from components.schema_form sf
+		group by sf.id_form 
+	) sf on sf.id_form = ce.id
+	
+	-- схема для таблиц
  		left join (
  			select schema_c.id_components,
  				json_agg(
@@ -106,7 +121,4 @@ left join (
 where s.id = _id;
 	END;    
 $function$
-;  
-
-
-select * from screen_platform_get(1);
+;
