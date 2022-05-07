@@ -20,11 +20,30 @@ left join (
 			'type', c."name",
 			'params', cp.params,
 			'api', config_api,
-			'event', component_callback
+			'event', component_callback,
+			'schema_table', "schema" 
 			)) components
 	from components.screen_components sc
 	left join components.component_example ce on ce.id = sc.id
 	left join components.component c on c.id = ce.id_component
+-- схема для таблиц
+ 		left join (
+ 			select schema_c.id_components,
+ 				json_agg(
+ 					json_build_object(
+ 						schema_c.key, json_build_object(
+ 							'id', schema_c.id,
+ 							'key', schema_c.key,
+ 							'sort', schema_c.sort,
+ 							'title', schema_c.title,
+ 							'button', schema_c.button,
+ 							'w', schema_c.w
+ 						)
+ 					)
+ 			) "schema"
+ 			from components.schema_table schema_c
+ 			group by schema_c.id_components 
+ 		)schema_c  on schema_c.id_components = ce.id
 	-- калбек + event
 left join (
 	select cc.id_component,
@@ -87,4 +106,7 @@ left join (
 where s.id = _id;
 	END;    
 $function$
-;
+;  
+
+
+select * from screen_platform_get(1);
