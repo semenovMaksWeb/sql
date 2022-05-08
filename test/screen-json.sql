@@ -2,7 +2,19 @@ CREATE OR REPLACE FUNCTION screen_platform_get(_id int)
  RETURNS  TABLE(screen json)
  LANGUAGE plpgsql
 AS $function$
+	DECLARE
+	id_component_screen int[];
+	id_component_form int[];
 	BEGIN
+	id_component_screen := (select array_agg(ce.id::INT)
+		from components.screen s 
+		left join components.screen_components sc on sc.id_screen  = s.id
+		left join components.component_example ce on ce.id = sc.id_component
+		where s.id  = _id);
+	id_component_form := (select array_agg(sf.id_components)
+		from component_example ce 
+		left join schema_form sf on sf.id_form = ce.id
+		where ce.id = any (id_component_screen) and sf.id_components notnull);   		
 --	главный select
   return query 
   select json_build_object(
@@ -11,13 +23,7 @@ AS $function$
 		'url', s.url
 	),
 	'breadcrumbs', b,
-	'components', components_platform_get((
-		select array_agg(ce.id::INT)
-		from components.screen s 
-			left join components.screen_components sc on sc.id_screen  = s.id
-			left join components.component_example ce on ce.id = sc.id_component
-			where s.id  = _id
-	))
+ 	'components', components_platform_get(array_cat(id_component_screen, id_component_form))
 ) screen
 from components.screen s
 left join (
