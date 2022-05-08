@@ -11,10 +11,10 @@ AS $function$
 			'class', ce."class",
 			'style', ce."style",
  			'type', c."name",
-			-- 'params', cp.params,
-			-- 'api', config_api,
-			-- 'event', component_callback,
-			-- 'schema_table', "schema",
+			'params', cp.params,
+			'api', config_api,
+			'event', component_callback,
+			'schema_table', "schema",
 			'schema_form', schema_form
 			)
         )  from components.component_example ce
