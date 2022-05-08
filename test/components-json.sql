@@ -1,6 +1,6 @@
-CREATE OR REPLACE FUNCTION components_platform_get(_id int)
-RETURNS  TABLE(components json)
-LANGUAGE plpgsql
+CREATE OR REPLACE FUNCTION components.components_platform_get(_id integer[])
+ RETURNS TABLE(components json)
+ LANGUAGE plpgsql
 AS $function$
 	BEGIN
         return query
@@ -23,16 +23,19 @@ AS $function$
 		select sf.id_form,
  			json_agg(
 				json_build_object(
+--                    'component', component_form,
 					'id_components',sf.id_components,
 					'id_parent', sf.id_parent
 				)
 			) schema_form
 		from components.schema_form sf
+--		join (select * from components_platform_get(sf.id_components)) component_form on ce.id = sf.id_components
 		group by sf.id_form 
 	    ) sf on sf.id_form = ce.id
+--	    схема таблицы
       	left join (
- 			select schema_c.id_components,
- 				json_agg(
+ 			select schema_c.id_components,			
+			 json_agg(
  					json_build_object(
  						schema_c.key, json_build_object(
  							'id', schema_c.id,
@@ -42,8 +45,8 @@ AS $function$
  							'button', schema_c.button,
  							'w', schema_c.w
  						)
- 					)
- 			) "schema"
+				 )
+			) "schema"
  			from components.schema_table schema_c
  			group by schema_c.id_components 
  		)schema_c  on schema_c.id_components = ce.id
@@ -59,8 +62,7 @@ AS $function$
             left join  components.event e on e.id = cc.id_event
             group by cc.id_component
         ) cc on cc.id_component = ce.id
-
-        left join (
+			left join (
 			select cp.id_components,
 			json_agg(
 					json_build_object(
@@ -102,8 +104,7 @@ AS $function$
 		) cap on cap.id_config_api = ca.id
 				group by ca.id_component
 	 ) ca  on ca.id_component = ce.id
-
-
+   	where ce.id =  ANY (_id);
    	END;    
 $function$
 ;
