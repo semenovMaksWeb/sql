@@ -1,25 +1,35 @@
-CREATE OR REPLACE FUNCTION components_platform_get(_id int)
-RETURNS  TABLE(components json)
-LANGUAGE plpgsql
+CREATE OR REPLACE FUNCTION screen_platform_get(_id int)
+ RETURNS  TABLE(screen json)
+ LANGUAGE plpgsql
 AS $function$
 	BEGIN
-        return query
-             select 
-        json_agg(
-            json_build_object(
-			'id', ce.id,
-			'class', ce."class",
+--	главный select
+  return query select json_build_object(
+	'screen_id', s.id,
+	'component', components
+) screen
+from components.screen s 
+left join (
+--	компоненты select
+	select sc.id_screen,
+	json_agg(
+			json_build_object(
+			'id', sc.id,
+			'class', ce."class", 
 			'style', ce."style",
- 			'type', c."name",
-			-- 'params', cp.params,
-			-- 'api', config_api,
-			-- 'event', component_callback,
-			-- 'schema_table', "schema",
+			'type', c."name",
+			'params', cp.params,
+			'api', config_api,
+			'event', component_callback,
+			'schema_table', "schema",
 			'schema_form', schema_form
 			)
-        )  from components.component_example ce
-        left join components.component c on c.id = ce.id_component
-        left join (
+		) components
+	from components.screen_components sc
+	left join components.component_example ce on ce.id = sc.id
+	left join components.component c on c.id = ce.id_component
+	-- схема для форм
+	left join (
 		select sf.id_form,
  			json_agg(
 				json_build_object(
@@ -29,8 +39,10 @@ AS $function$
 			) schema_form
 		from components.schema_form sf
 		group by sf.id_form 
-	    ) sf on sf.id_form = ce.id
-      	left join (
+	) sf on sf.id_form = ce.id
+	
+	-- схема для таблиц
+ 		left join (
  			select schema_c.id_components,
  				json_agg(
  					json_build_object(
@@ -47,20 +59,21 @@ AS $function$
  			from components.schema_table schema_c
  			group by schema_c.id_components 
  		)schema_c  on schema_c.id_components = ce.id
-        left join (
-            select cc.id_component,
-            json_agg(
-                json_build_object(
-                    e.name, (json_build_object(
-                        'id', cc.id,
-                        'params', cc.params	
-                    )))) component_callback
-            from components.component_callback cc
-            left join  components.event e on e.id = cc.id_event
-            group by cc.id_component
-        ) cc on cc.id_component = ce.id
-
-        left join (
+	-- калбек + event
+left join (
+	select cc.id_component,
+	json_agg(
+		json_build_object(
+			e.name, (json_build_object(
+				'id', cc.id,
+				'params', cc.params	
+			)))) component_callback
+	from components.component_callback cc
+	left join  components.event e on e.id = cc.id_event
+	group by cc.id_component
+) cc on cc.id_component = ce.id 
+--	параметры
+		left join (
 			select cp.id_components,
 			json_agg(
 					json_build_object(
@@ -75,7 +88,7 @@ AS $function$
 			left join components.params p  on p.id  = cr.id_params
 			left join components.typevar t on t.id  = p."type" 
 			group by cp.id_components 
-			)cp on cp.id_components = ce.id 
+			)cp on cp.id_components = ce.id 		
 	left join (
 		select ca.id_component, json_agg(
 			json_build_object(
@@ -102,8 +115,10 @@ AS $function$
 		) cap on cap.id_config_api = ca.id
 				group by ca.id_component
 	 ) ca  on ca.id_component = ce.id
-
-
-   	END;    
+	where sc.id_screen = _id
+		group by sc.id_screen 
+) sc on s.id = sc.id_screen
+where s.id = _id;
+	END;    
 $function$
 ;
