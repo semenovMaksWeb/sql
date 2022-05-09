@@ -1,10 +1,10 @@
 CREATE OR REPLACE FUNCTION type_var_get()
- RETURNS TABLE(id bigint, name character varying)
+ RETURNS TABLE(id int, "name" character varying)
  LANGUAGE plpgsql
 AS $function$
 	begin
 		return query
-            select * from typevar t 
+            select * from components."typevar" t; 
 	END;
 $function$
 ;
