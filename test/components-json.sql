@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION components.components_platform_get(_id integer[])
+CREATE OR REPLACE FUNCTION components.components.components_platform_get(_id integer[])
  RETURNS TABLE(components json)
  LANGUAGE plpgsql
 AS $function$

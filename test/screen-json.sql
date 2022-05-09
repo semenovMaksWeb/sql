@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION screen_platform_get(_id int)
+CREATE OR REPLACE FUNCTION components.screen_platform_get(_id int)
  RETURNS  TABLE(screen json)
  LANGUAGE plpgsql
 AS $function$
