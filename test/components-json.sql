@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION components.components.components_platform_get(_id integer[])
+CREATE OR REPLACE FUNCTION components.components_platform_get(_id integer[])
  RETURNS TABLE(components json)
  LANGUAGE plpgsql
 AS $function$
@@ -17,8 +17,8 @@ AS $function$
 			'schema_table', "schema",
 			'schema_form', schema_form
 			)
-        )  from components.component_example ce
-        left join components.component c on c.id = ce.id_component
+        )  from components."component_example" ce
+        left join components."component" c on c.id = ce.id_component
         left join (
 		select sf.id_form,
  			json_agg(
@@ -28,7 +28,7 @@ AS $function$
 					'id_parent', sf.id_parent
 				)
 			) schema_form
-		from components.schema_form sf
+		from components."schema_form" sf
 --		join (select * from components_platform_get(sf.id_components)) component_form on ce.id = sf.id_components
 		group by sf.id_form 
 	    ) sf on sf.id_form = ce.id
@@ -47,7 +47,7 @@ AS $function$
  						)
 				 )
 			) "schema"
- 			from components.schema_table schema_c
+ 			from components."schema_table" schema_c
  			group by schema_c.id_components 
  		)schema_c  on schema_c.id_components = ce.id
         left join (
@@ -58,8 +58,8 @@ AS $function$
                         'id', cc.id,
                         'params', cc.params	
                     )))) component_callback
-            from components.component_callback cc
-            left join  components.event e on e.id = cc.id_event
+            from components."component_callback" cc
+            left join  components."event" e on e.id = cc.id_event
             group by cc.id_component
         ) cc on cc.id_component = ce.id
 			left join (
@@ -72,10 +72,10 @@ AS $function$
 						'value', cp.value,
 						'type', t."name" 	
 					))) params
-			from components.components_params cp  
-			left join components.component_rule cr  on cr.id  = cp.id_params
-			left join components.params p  on p.id  = cr.id_params
-			left join components.typevar t on t.id  = p."type" 
+			from components."components_params" cp  
+			left join components."component_rule" cr  on cr.id  = cp.id_params
+			left join components."params" p  on p.id  = cr.id_params
+			left join components."typevar" t on t.id  = p."type" 
 			group by cp.id_components 
 			)cp on cp.id_components = ce.id 
 	left join (
@@ -97,9 +97,9 @@ AS $function$
 						'type', ef."type",
 						'type_var', t2."name" 
 					)) api_params 
-			from components.component_api_params cap 
-			left join components.element_fd ef ON cap.id_element_fd = ef.id
-			left join components.typevar t2 on t2.id = ef.var_type 
+			from components."component_api_params" cap 
+			left join components."element_fd" ef ON cap.id_element_fd = ef.id
+			left join components."typevar" t2 on t2.id = ef.var_type 
 			group by cap.id_config_api
 		) cap on cap.id_config_api = ca.id
 				group by ca.id_component
