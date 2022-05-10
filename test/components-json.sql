@@ -52,18 +52,22 @@ AS $function$
  		)schema_c  on schema_c.id_components = ce.id
         left join (
             select cc.id_component,
-            json_agg(
+--            json_agg(
                 json_build_object(
-                    e.name, (json_build_object(
+                    e.name, (
+                    json_agg(
+                     	json_build_object(
                         'id', cc.id,
                         'name', ff."name",
                         'params', cc.params
-
-                    )))) component_callback
+                    	)
+                    )
+-- 				)
+ 				)) component_callback
             from components."component_callback" cc
             left join  components."event" e on e.id = cc.id_event
             left join components."function_front" ff on ff.id  = cc.id_callback
-            group by cc.id_component
+            group by cc.id_component, e.name
         ) cc on cc.id_component = ce.id
 			left join (
 			select cp.id_components,
