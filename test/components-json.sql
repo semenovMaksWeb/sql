@@ -5,8 +5,8 @@ AS $function$
 	BEGIN
         return query
              select 
-        json_agg(
-            json_build_object(
+        json_object_agg(
+            ce.id, json_build_object(
 			'id', ce.id,
 			'class', ce."class",
 			'style', ce."style",
@@ -35,8 +35,7 @@ AS $function$
 --	    схема таблицы
       	left join (
  			select schema_c.id_components,			
-			 json_agg(
- 					json_build_object(
+ 					json_object_agg(
  						schema_c.key, json_build_object(
  							'id', schema_c.id,
  							'key', schema_c.key,
@@ -46,9 +45,9 @@ AS $function$
  							'w', schema_c.w
  						)
 				 )
-			) "schema"
+			 "schema"
  			from components."schema_table" schema_c
- 			group by schema_c.id_components 
+ 			group by schema_c.id_components
  		)schema_c  on schema_c.id_components = ce.id
         left join (
             select cc.id_component,
@@ -71,14 +70,13 @@ AS $function$
         ) cc on cc.id_component = ce.id
 			left join (
 			select cp.id_components,
-			json_agg(
-					json_build_object(
+			json_object_agg(
 					p."name", json_build_object(
 --						'id', p.id,
 						'url', cr.url,
 						'value', cp.value,
 						'type', t."name" 	
-					))) params
+					)) params
 			from components."components_params" cp  
 			left join components."component_rule" cr  on cr.id  = cp.id_params
 			left join components."params" p  on p.id  = cr.id_params
