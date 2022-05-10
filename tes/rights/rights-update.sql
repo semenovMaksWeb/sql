@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION rights_update(
+CREATE OR REPLACE FUNCTION tes.rights_update(
 	_name character varying,
 	_id integer
 )
@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION rights_update(
  LANGUAGE plpgsql
 AS $function$
 	begin
-         UPDATE rights SET "name"=%L WHERE id=%2$s;
+         UPDATE tes.rights SET "name"=%L WHERE id=%2$s;
 	END;
 $function$
 ;

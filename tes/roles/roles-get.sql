@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION roles_get(
+CREATE OR REPLACE FUNCTION tes.roles_get(
 	_name character varying,
 	_id integer
 )
@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION roles_get(
  LANGUAGE plpgsql
 AS $function$
 	begin
-        SELECT id, name FROM roles
+        SELECT id, name FROM tes.roles
 	END;
 $function$
 ;

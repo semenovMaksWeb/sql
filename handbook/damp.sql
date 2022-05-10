@@ -1,14 +1,14 @@
-INSERT INTO type_history ("name") VALUES
+INSERT INTO handbook.type_history ("name") VALUES
 	('чтение'),
 	('создание'),
 	('удаление'),
 	('изменения');
 
-INSERT INTO gender ("name") VALUES
+INSERT INTO handbook.gender ("name") VALUES
 	('мужской'),
 	('женский');
 
-INSERT INTO "event" ("name", description) VALUES
+INSERT INTO handbook."event" ("name", description) VALUES
 	('click', 'событие происходящие при клике левой кнопки мыши'), 
 	('focus', 'событие происходящие когда элемент получил фокус');
 

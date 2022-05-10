@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION rights_create(
+CREATE OR REPLACE FUNCTION tes.rights_create(
 	_name character varying
 )
  RETURNS void
  LANGUAGE plpgsql
-AS $function$
+ AS $function$
 	begin
-        INSERT INTO rights (name) VALUES(%L);
+        INSERT INTO tes.rights (name) VALUES(%L);
 	END;
 $function$
 ;

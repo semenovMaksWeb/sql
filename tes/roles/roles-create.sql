@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION roles_create(
+CREATE OR REPLACE FUNCTION tes.roles_create(
 	_name character varying
 )
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
 	begin
-        INSERT INTO roles (name) VALUES(%L);
+        INSERT INTO tes.roles (name) VALUES(%L);
 	END;
 $function$
 ;

@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION rights_get(
+CREATE OR REPLACE FUNCTION tes.rights_get(
 	_name character varying,
 	_id integer
 )
@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION rights_get(
  LANGUAGE plpgsql
 AS $function$
 	begin
-        SELECT id, name FROM rights
+        SELECT id, name FROM tes.rights
 	END;
 $function$
 ;
