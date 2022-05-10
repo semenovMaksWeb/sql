@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.config_api_create(_url varchar, _type varchar, _id_component int)
+CREATE OR REPLACE FUNCTION components.config_api_create(_url varchar, _type varchar, _id_component int)
  RETURNS int
  LANGUAGE plpgsql
  AS $function$
