@@ -1,4 +1,4 @@
-CREATE TABLE component_api_params (
+CREATE TABLE components.component_api_params (
 	id int NOT NULL GENERATED ALWAYS AS IDENTITY,
 	id_config_api int NULL,
 	id_element_fd int NULL,

@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.component_rule_get_id_components(_id int)
+CREATE OR REPLACE FUNCTION components.component_rule_get_id_components(_id int)
  RETURNS TABLE(id int, url varchar, "default" boolean, params_name varchar, type_name varchar)
  LANGUAGE plpgsql
 AS $function$

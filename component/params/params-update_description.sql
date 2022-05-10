@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION public.params_update_description(_id int, _description varchar)
+CREATE OR REPLACE FUNCTION components.params_update_description(_id int, _description varchar)
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
 	BEGIN
-	    UPDATE public."params"
+	    UPDATE components."params"
 	    SET "description" = _description
-	    where public."params".id  = _id;
+	    where components."params".id  = _id;
 	END;
 $function$
 ;

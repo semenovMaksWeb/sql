@@ -1,4 +1,4 @@
-CREATE TABLE public.component_rule (
+CREATE TABLE components.component_rule (
 	id int NOT NULL GENERATED ALWAYS AS IDENTITY,
 	id_params int NOT NULL,
 	id_component int NULL,

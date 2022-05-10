@@ -1,4 +1,4 @@
-CREATE TABLE screen_components (
+CREATE TABLE components.screen_components (
 	id int NOT NULL GENERATED ALWAYS AS IDENTITY,
 	id_screen int NOT NULL,
 	id_component int NOT NULL,

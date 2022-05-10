@@ -1,4 +1,4 @@
-CREATE TABLE breadcrumbs (
+CREATE TABLE components.breadcrumbs (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	"name" varchar NULL,
 	url varchar NULL,

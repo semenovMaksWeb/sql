@@ -1,4 +1,4 @@
-CREATE TABLE schema_table (
+CREATE TABLE components.schema_table (
 	id int NOT NULL GENERATED ALWAYS AS IDENTITY,
 	id_components int NOT NULL,
 	sort bool NOT NULL,

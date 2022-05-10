@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.params_get_all()
+CREATE OR REPLACE FUNCTION components.params_get_all()
  RETURNS TABLE(params_id integer, params_name varchar, params_req bool, description varchar, type_id integer, type_name varchar)
  LANGUAGE plpgsql
 AS $function$

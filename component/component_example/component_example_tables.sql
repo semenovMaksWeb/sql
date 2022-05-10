@@ -1,4 +1,4 @@
-CREATE TABLE component_example (
+CREATE TABLE components.component_example (
    id int NOT NULL GENERATED ALWAYS AS IDENTITY,
    id_component int NOT NULL,
    attr json NULL,

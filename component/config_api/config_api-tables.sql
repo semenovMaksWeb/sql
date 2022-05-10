@@ -1,4 +1,4 @@
-CREATE TABLE public.config_api (
+CREATE TABLE components.config_api (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	url varchar NULL,
 	"type" varchar NULL,

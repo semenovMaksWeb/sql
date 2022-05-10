@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.components_example_get(_id int)
+CREATE OR REPLACE FUNCTION components.components_example_get(_id int)
  RETURNS TABLE(
    id_component int, 
    class json, 

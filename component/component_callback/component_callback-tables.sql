@@ -1,4 +1,4 @@
-CREATE TABLE component_callback (
+CREATE TABLE components.component_callback (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	id_callback int4 NOT NULL,
 	params json NULL,

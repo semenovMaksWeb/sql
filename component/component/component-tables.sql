@@ -1,4 +1,4 @@
-CREATE TABLE public.component (
+CREATE TABLE components.component (
 	id int NOT NULL GENERATED ALWAYS AS IDENTITY,
 	"name" varchar NOT NULL,
 	description varchar NULL,

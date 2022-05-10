@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.component_rule_update(_id int,_id_params int, _id_component int, _url varchar = NULL, _default boolean = NULL)
+CREATE OR REPLACE FUNCTION components.component_rule_update(_id int,_id_params int, _id_component int, _url varchar = NULL, _default boolean = NULL)
  RETURNS void
  LANGUAGE plpgsql
 AS $function$

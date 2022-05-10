@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION component_get_name(_name varchar)
+CREATE OR REPLACE FUNCTION components.component_get_name(_name varchar)
  RETURNS TABLE(component_id integer, component_name varchar)
  LANGUAGE plpgsql
 AS $function$

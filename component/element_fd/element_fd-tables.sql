@@ -1,4 +1,4 @@
-CREATE TABLE public.element_fd (
+CREATE TABLE components.element_fd (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	name_params varchar NOT NULL,
 	"result" varchar NOT NULL,

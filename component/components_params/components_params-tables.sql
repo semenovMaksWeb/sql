@@ -1,4 +1,4 @@
-CREATE TABLE public.components_params (
+CREATE TABLE components.components_params (
 	id_components int NULL,
 	id_params int NULL,
 	value varchar NULL,

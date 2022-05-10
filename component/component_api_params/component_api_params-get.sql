@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.component_api_params_get(_id int)
+CREATE OR REPLACE FUNCTION components.component_api_params_get(_id int)
  RETURNS TABLE(id_api integer, url varchar, api_type varchar, fd_id int,fd_name_params varchar, fd_result varchar, fd_type int, fd_name varchar, fd_index int, fd_var_type varchar)
  LANGUAGE plpgsql
 AS $function$

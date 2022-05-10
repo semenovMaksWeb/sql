@@ -1,4 +1,4 @@
-CREATE TABLE params (
+CREATE TABLE components.params (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	"name" varchar NOT NULL,
 	req bool NULL DEFAULT true,
