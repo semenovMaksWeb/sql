@@ -56,10 +56,13 @@ AS $function$
                 json_build_object(
                     e.name, (json_build_object(
                         'id', cc.id,
-                        'params', cc.params	
+                        'name', ff."name",
+                        'params', cc.params
+
                     )))) component_callback
             from components."component_callback" cc
             left join  components."event" e on e.id = cc.id_event
+            left join components."function_front" ff on ff.id  = cc.id_callback
             group by cc.id_component
         ) cc on cc.id_component = ce.id
 			left join (
