@@ -9,5 +9,5 @@ CREATE TABLE public.element_fd (
 	CONSTRAINT element_fd_pk PRIMARY KEY (id),
 	CONSTRAINT element_fd_type_check CHECK ((type = ANY (ARRAY[1, 2, 3, 4]))),
 	CONSTRAINT element_fd_result_check CHECK ("result" = 'params' or  "result" = 'body' or "result" = 'all' ),
-	CONSTRAINT element_fd_fk FOREIGN KEY (var_type) REFERENCES public.typevar(id)
+	CONSTRAINT element_fd_fk FOREIGN KEY (var_type) REFERENCES handbook.typevar(id)
 );

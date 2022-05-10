@@ -10,4 +10,4 @@ CREATE TABLE params (
 
 -- public.params foreign keys
 
-ALTER TABLE params ADD CONSTRAINT params_fk FOREIGN KEY ("type") REFERENCES public.typevar(id);
+ALTER TABLE params ADD CONSTRAINT params_fk FOREIGN KEY ("type") REFERENCES handbook.typevar(id);

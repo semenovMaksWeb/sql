@@ -4,5 +4,5 @@ CREATE TABLE component_example (
    attr json NULL,
    "style" json NULL,
    CONSTRAINT component_example_pk PRIMARY KEY (id),
-   CONSTRAINT component_example_fk FOREIGN KEY (id_component) REFERENCES "component"(id)
+   CONSTRAINT component_example_fk FOREIGN KEY (id_component) REFERENCES components."component"(id)
 )

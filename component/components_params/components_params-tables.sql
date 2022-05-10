@@ -4,6 +4,6 @@ CREATE TABLE public.components_params (
 	value varchar NULL,
 	id int NOT NULL GENERATED ALWAYS AS IDENTITY,
 	CONSTRAINT components_params_pk PRIMARY KEY (id),
-	CONSTRAINT components_params_fk FOREIGN KEY (id_components) REFERENCES public.component_example(id),
-	CONSTRAINT components_params_fk_1 FOREIGN KEY (id_params) REFERENCES public.component_rule(id)
+	CONSTRAINT components_params_fk FOREIGN KEY (id_components) REFERENCES components.component_example(id),
+	CONSTRAINT components_params_fk_1 FOREIGN KEY (id_params) REFERENCES components.component_rule(id)
 );

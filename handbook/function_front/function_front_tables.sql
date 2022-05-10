@@ -1,4 +1,4 @@
-CREATE TABLE function_front (
+CREATE TABLE handbook.function_front (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	"name" varchar NOT NULL,
 	description varchar NULL,

@@ -3,6 +3,6 @@ CREATE TABLE screen_components (
 	id_screen int NOT NULL,
 	id_component int NOT NULL,
 	CONSTRAINT screen_components_pk PRIMARY KEY (id),
-	CONSTRAINT screen_components_fk FOREIGN KEY (id_component) REFERENCES component_example(id),
-	CONSTRAINT screen_components_fk_1 FOREIGN KEY (id_screen) REFERENCES screen(id)
+	CONSTRAINT screen_components_fk FOREIGN KEY (id_component) REFERENCES components.component_example(id),
+	CONSTRAINT screen_components_fk_1 FOREIGN KEY (id_screen) REFERENCES components.screen(id)
 );

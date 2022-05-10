@@ -6,6 +6,6 @@ CREATE TABLE public.component_rule (
 	url varchar NULL,
 	"default" bool NULL DEFAULT false,
 	CONSTRAINT component_rule_tables_pk PRIMARY KEY (id),
-	CONSTRAINT component_rule_tables_fk FOREIGN KEY (id_component) REFERENCES public.component(id),
-	CONSTRAINT component_rule_tables_fk_1 FOREIGN KEY (id_params) REFERENCES public.params(id)
+	CONSTRAINT component_rule_tables_fk FOREIGN KEY (id_component) REFERENCES components.component(id),
+	CONSTRAINT component_rule_tables_fk_1 FOREIGN KEY (id_params) REFERENCES components.params(id)
 );
