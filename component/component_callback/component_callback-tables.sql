@@ -4,6 +4,7 @@ CREATE TABLE components.component_callback (
 	params json NULL,
 	id_component int4 NULL,
 	id_event int4 NULL,
+	"order" int4 NULL,
 	CONSTRAINT component_callback_pk PRIMARY KEY (id),
 	CONSTRAINT component_callback_event_fk FOREIGN KEY (id_event) REFERENCES handbook."event"(id),
 	CONSTRAINT component_callback_fk FOREIGN KEY (id_callback) REFERENCES handbook.function_front(id),
