@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION gender_get()
+CREATE OR REPLACE FUNCTION handbook.gender_get()
  RETURNS TABLE(id bigint, name character varying)
  LANGUAGE plpgsql
 AS $function$

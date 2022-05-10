@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION type_history_update(
+CREATE OR REPLACE FUNCTION handbook.type_history_update(
 	_name character varying, 
 	_id bigint
 )
@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION type_history_update(
  LANGUAGE plpgsql
 AS $function$
 	begin
-        UPDATE type_history SET "name"=_name WHERE id=%2$s;
+        UPDATE handbook.type_history SET "name"=_name WHERE id=%2$s;
 	END;
 $function$
 ;

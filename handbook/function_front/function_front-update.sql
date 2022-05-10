@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION function_front_update(
+CREATE OR REPLACE FUNCTION handbook.function_front_update(
 	_id int,
     _name character varchar,
     _description varchar = null
@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION function_front_update(
  LANGUAGE plpgsql
 AS $function$
 	begin
-		UPDATE function_front 
+		UPDATE handbook.function_front 
 		SET 
 			"name"=_name, 
 			"description"=_description

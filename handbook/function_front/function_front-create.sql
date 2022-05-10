@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION function_front_create(
+CREATE OR REPLACE FUNCTION handbook.function_front_create(
     _name character varying,
     _description varying = null,
 )
@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION function_front_create(
  LANGUAGE plpgsql
 AS $function$
 	begin
-    	INSERT INTO function_front (name, description) VALUES(_name, _description);
+    	INSERT INTO handbook.function_front (name, description) VALUES(_name, _description);
 	END;
 $function$
 ;
