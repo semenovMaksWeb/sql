@@ -64,8 +64,8 @@ AS $function$
 -- 				)
  				)) component_callback
             from components."component_callback" cc
-            left join  components."event" e on e.id = cc.id_event
-            left join components."function_front" ff on ff.id  = cc.id_callback
+            left join  handbook."event" e on e.id = cc.id_event
+            left join handbook."function_front" ff on ff.id  = cc.id_callback
             group by cc.id_component, e.name
         ) cc on cc.id_component = ce.id
 			left join (
@@ -80,7 +80,7 @@ AS $function$
 			from components."components_params" cp  
 			left join components."component_rule" cr  on cr.id  = cp.id_params
 			left join components."params" p  on p.id  = cr.id_params
-			left join components."typevar" t on t.id  = p."type" 
+			left join handbook."typevar" t on t.id  = p."type" 
 			group by cp.id_components 
 			)cp on cp.id_components = ce.id 
 	left join (
@@ -104,7 +104,7 @@ AS $function$
 					)) api_params 
 			from components."component_api_params" cap 
 			left join components."element_fd" ef ON cap.id_element_fd = ef.id
-			left join components."typevar" t2 on t2.id = ef.var_type 
+			left join handbook."typevar" t2 on t2.id = ef.var_type 
 			group by cap.id_config_api
 		) cap on cap.id_config_api = ca.id
 				group by ca.id_component
