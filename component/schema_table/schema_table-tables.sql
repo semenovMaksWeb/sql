@@ -6,6 +6,7 @@ CREATE TABLE components.schema_table (
 	title varchar NULL,
 	button int NULL,
 	w int NULL,
+	"order" int4 NULL,
 	CONSTRAINT schema_table_pk PRIMARY KEY (id),
 	CONSTRAINT schema_table_fk FOREIGN KEY (id_components) REFERENCES components.component_example(id)
 );
