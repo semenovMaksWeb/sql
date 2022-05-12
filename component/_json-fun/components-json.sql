@@ -42,7 +42,8 @@ AS $function$
  							'sort', schema_c.sort,
  							'title', schema_c.title,
  							'button', schema_c.button,
- 							'w', schema_c.w
+ 							'w', schema_c.w,
+ 							'order', schema_c.order
  						)
 				 )
 			 "schema"
@@ -89,7 +90,7 @@ AS $function$
 			json_build_object(
 				'url', ca.url,
 				'type', ca.type,
-				'params', api_params,
+				'params', api_params
 			)
 		) config_api  from components.config_api ca 
 		left join (
