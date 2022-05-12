@@ -32,7 +32,8 @@ left join (
 		json_agg(
         	json_build_object(
             	'name', b."name",
-            	'url', b.url
+            	'url', b.url,
+				'order', b.order
         	)
 	) b 
 	from components."breadcrumbs" b
@@ -42,6 +43,3 @@ where s.id = _id;
 	END;    
 $function$
 ;
-
-
-select * from screen_platform_get(1);

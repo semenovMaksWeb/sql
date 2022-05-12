@@ -58,7 +58,8 @@ AS $function$
                      	json_build_object(
                         'id', cc.id,
                         'name', ff."name",
-                        'params', cc.params
+                        'params', cc.params,
+						'order', cc.order
                     	)
                     )
 -- 				)
@@ -88,7 +89,7 @@ AS $function$
 			json_build_object(
 				'url', ca.url,
 				'type', ca.type,
-				'params', api_params
+				'params', api_params,
 			)
 		) config_api  from components.config_api ca 
 		left join (
