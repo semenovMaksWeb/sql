@@ -12,13 +12,18 @@ AS $function$
 			'style', ce."style",
  			'type', c."name",
 			'params', cp.params,
-			'api', config_api,
+			'api', json_build_object(
+				'url', ca.url,
+	 			'type', ca.type,
+	  			'params', api_params
+			),
 			'event', component_callback,
 			'schema_table', "schema",
 			'schema_form', schema_form
 			)
         )  from components."component_example" ce
         left join components."component" c on c.id = ce.id_component
+		left join components.config_api ca  on ca.id_component = ce.id
         left join (
 		select sf.id_form,
  			json_agg(
@@ -82,17 +87,18 @@ AS $function$
 			from components."components_params" cp  
 			left join components."component_rule" cr  on cr.id  = cp.id_params
 			left join components."params" p  on p.id  = cr.id_params
-			left join handbook."typevar" t on t.id  = p."type" 
+			left join handbook."typevar" t on t.id  = p."type"
+
 			group by cp.id_components 
 			)cp on cp.id_components = ce.id 
-	left join (
-		select ca.id_component, json_agg(
-			json_build_object(
-				'url', ca.url,
-				'type', ca.type,
-				'params', api_params
-			)
-		) config_api  from components.config_api ca 
+	-- left join (
+	-- 	select ca.id_component, json_agg(
+	-- 		json_build_object(
+	-- 			'url', ca.url,
+	-- 			'type', ca.type,
+	-- 			'params', api_params
+	-- 		)
+	-- 	) config_api  from components.config_api ca 
 		left join (
 			select cap.id_config_api,
 			  json_object_agg(
@@ -108,8 +114,8 @@ AS $function$
 			left join handbook."typevar" t2 on t2.id = ef.var_type 
 			group by cap.id_config_api
 		) cap on cap.id_config_api = ca.id
-				group by ca.id_component
-	 ) ca  on ca.id_component = ce.id
+		-- group by ca.id_component
+	--  ) ca  on ca.id_component = ce.id
    	where ce.id =  ANY (_id);
    	END;    
 $function$
