@@ -95,9 +95,8 @@ AS $function$
 		) config_api  from components.config_api ca 
 		left join (
 			select cap.id_config_api,
-			  json_agg(
-					json_build_object(
-						'name_params', ef.name_params,
+			  json_object_agg(
+				  ef.name_params, json_build_object(
 						'result', ef.result,
 						'name', ef.name,
 						'index', ef."index",
