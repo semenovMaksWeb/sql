@@ -7,7 +7,13 @@ AS $function$
 	id_component_form int[];
 	id_screen_top int;
 	BEGIN
-	id_screen_top:= (select id from screen where screen.url = _url);
+	id_screen_top:= (select id from components."screen" where screen.url = _url);
+	IF id_screen_top IS NULL THEN
+	return query 
+  select json_build_object(
+	  'screen', null
+  );
+	END IF;
 	id_component_screen := (select array_agg(ce.id::INT)
 		from components."screen" s 
 		left join components."screen_components" sc on sc.id_screen  = s.id
