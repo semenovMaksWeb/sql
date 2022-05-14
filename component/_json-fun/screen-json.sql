@@ -22,23 +22,25 @@ AS $function$
 		'id', s.id,
 		'url', s.url
 	),
-	'breadcrumbs', b,
+	'breadcrumbs', bs,
  	'components', components."components_platform_get"(array_cat(id_component_screen, id_component_form))
 ) screen
 from components."screen" s
 left join (
 	select 
-		b.id_screen,
+		bs.id_screen,
 		json_agg(
         	json_build_object(
             	'name', b."name",
-            	'url', b.url,
-				'order', b.order
+            	'url', s2.url,
+				'order', bs.order
         	)
-	) b 
-	from components."breadcrumbs" b
-	group by b.id_screen
-) b on b.id_screen = _id
+	) bs
+	from components."breadcrumbs_screen" bs
+	left join components.breadcrumbs b on bs.id_breadcrumbs = b.id
+	left join components.screen s2 on bs.id_screen = s2.id
+	group by bs.id_screen
+) bs on bs.id_screen = _id
 where s.id = _id;
 	END;    
 $function$
