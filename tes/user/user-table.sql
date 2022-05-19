@@ -11,5 +11,5 @@ CREATE TABLE tes.user (
     id_roles int4 NULL,
     CONSTRAINT user_pk PRIMARY KEY (id),
     CONSTRAINT user_un UNIQUE (login),
-    CONSTRAINT user_fk FOREIGN KEY (id_roles) REFERENCES %1$s.roles(id)
+    CONSTRAINT user_fk FOREIGN KEY (id_roles) REFERENCES tes.roles(id)
 );
