@@ -10,6 +10,5 @@ CREATE TABLE tes.user (
     email varchar NULL,
     id_roles int4 NULL,
     CONSTRAINT user_pk PRIMARY KEY (id),
-    CONSTRAINT user_un UNIQUE (login),
-    CONSTRAINT user_fk FOREIGN KEY (id_roles) REFERENCES tes.roles(id)
+    CONSTRAINT user_un UNIQUE (login)
 );
