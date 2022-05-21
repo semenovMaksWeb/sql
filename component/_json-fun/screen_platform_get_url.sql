@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION components.screen_platform_get_url(_url varchar, _token uuid)
+CREATE OR REPLACE FUNCTION components.screen_platform_get_url(_url varchar, _token uuid = NULL)
  RETURNS  TABLE(screen json)
  LANGUAGE plpgsql
 AS $function$
@@ -6,6 +6,7 @@ AS $function$
 	id_component_screen int[];
 	id_component_form int[];
 	id_screen_top int;
+	check_rights boolean;
 	BEGIN
 	id_screen_top:= (select id from components."screen" where screen.url = _url);
 	IF id_screen_top IS NULL THEN
