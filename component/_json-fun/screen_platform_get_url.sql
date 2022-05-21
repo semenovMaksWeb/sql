@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION components.screen_platform_get_url(_url varchar)
+CREATE OR REPLACE FUNCTION components.screen_platform_get_url(_url varchar, _token uuid)
  RETURNS  TABLE(screen json)
  LANGUAGE plpgsql
 AS $function$
@@ -22,7 +22,7 @@ AS $function$
 	id_component_form := (select array_agg(sf.id_components)
 		from components."component_example" ce 
 		left join components."schema_form" sf on sf.id_form = ce.id
-		where ce.id = any (id_component_screen) and sf.id_components notnull);   		
+		where ce.id = any (id_component_screen) and sf.id_components notnull);
 --	главный select
   return query 
   select json_build_object(
@@ -49,7 +49,7 @@ left join (
 	left join components.screen s2 on b.id_screen = s2.id
 	group by bs.id_screen
 ) bs on bs.id_screen = id_screen_top
-where s.id = id_screen_top;
+where s.id = id_screen_top and (select check_rights from tes.rights_check_user_get(_token,s.id_right)) <> 0;
 	END;    
 $function$
 ;
