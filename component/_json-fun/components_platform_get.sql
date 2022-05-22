@@ -10,6 +10,8 @@ AS $function$
 			'id', ce.id,
 			'class', ce."class",
 			'style', ce."style",
+			'id_parent', ce.id_parent,
+			'order', ce."order",
  			'type', c."name",
 			'params', cp.params,
 			'api', json_build_object(
