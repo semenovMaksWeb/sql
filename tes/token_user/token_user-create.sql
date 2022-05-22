@@ -16,7 +16,7 @@ DECLARE
             VALUES(_token.id, _id_user);
             return _token.value;
         END IF;
-        return 'Не вверно введены данные';
+        return json_build_object('errors', json_build_object('password', 'Не вверно введены данные'));
 	END;
 $function$
 ;
