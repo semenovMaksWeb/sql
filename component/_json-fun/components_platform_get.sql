@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION components.components_platform_get(_id integer[])
+CREATE OR REPLACE FUNCTION components.components_platform_get(_id integer[], _token uuid DEFAULT NULL::uuid)
  RETURNS TABLE(components json)
  LANGUAGE plpgsql
 AS $function$
@@ -118,7 +118,7 @@ AS $function$
 		) cap on cap.id_config_api = ca.id
 		-- group by ca.id_component
 	--  ) ca  on ca.id_component = ce.id
-   	where ce.id =  ANY (_id);
+   	where ce.id =  ANY (_id) and (select check_rights from tes.rights_check_user_get(_token, ce.id_rights)) <> 0;
    	END;    
 $function$
 ;

@@ -9,8 +9,8 @@ AS $function$
 	   		IF _token IS NULL THEN
 			   return query select count(NULL) as check_rights;
 			ELSE
-				return query  select count(rr.id_rights) as check_rights from "token" t 
-				left join token_user tu ON tu.id_token = t.id 
+				return query  select count(rr.id_rights) as check_rights from tes."token" t 
+				left join tes.token_user tu ON tu.id_token = t.id 
 				left join tes."user" u on u.id  = tu.id_user
 				left join tes.user_roles ur on ur.id_user = u.id 
 				left join tes.roles_rights rr on rr.id_roles = rr.id_roles 

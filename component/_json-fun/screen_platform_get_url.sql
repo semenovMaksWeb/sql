@@ -31,7 +31,7 @@ AS $function$
 		'url', s.url
 	),
 	'breadcrumbs', bs,
- 	'components', components."components_platform_get"(array_cat(id_component_screen, id_component_form))
+ 	'components', components."components_platform_get"(array_cat(id_component_screen, id_component_form), _token)
 ) screen
 from components."screen" s
 left join (
