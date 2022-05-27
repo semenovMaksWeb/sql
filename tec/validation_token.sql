@@ -1,9 +1,8 @@
-CREATE
-    OR REPLACE FUNCTION tec.validation_token(_token uuid, out errors tec.errors, out result boolean)
-    RETURNS record
-    LANGUAGE plpgsql
-AS
-$function$
+create OR REPLACE function tec.validation_token(_token uuid, OUT errors tec.errors, OUT result boolean)
+    returns record
+    language plpgsql
+as
+$$
 Declare
     validate_token tec.validate_token;
 begin
@@ -19,16 +18,14 @@ begin
              left join tec."user" u on u.id = t.id_user
     where t.value = _token
     limit 1;
-    if validate_token.token_active = false or validate_token.token_date < now() then
+     if validate_token is null or  validate_token.token_active = false or validate_token.token_date < now() then
         select * into errors from tec.errors_get_id(5);
         result = false;
     elseif validate_token.user_active = false then
         select * into errors from tec.errors_get_id(4);
         result = false;
+    else
+        result = true;
     end if;
-    result = true;
 END;
-$function$
-;
-
-DROP FUNCTION tec.validation_token
+$$;
