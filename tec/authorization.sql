@@ -1,31 +1,27 @@
 CREATE OR REPLACE FUNCTION tec."authorization"(_login character varying, _password character varying,
-                                               OUT errors tec.errors, OUT token text, OUT users tec.users_get)
+                                               OUT errors tec.errors, OUT token text)
     RETURNS record
     LANGUAGE plpgsql
 AS
 $function$
 DECLARE
+    id int4;
+    active boolean;
 begin
-    SELECT u.id,
-           u.login,
-           u.active,
-           u."name",
-           u.surname,
-           u.patronymic,
-           u.phone,
-           u.email
-    into users
+    SELECT u.id, u.active
+    into id, active
     FROM tec."user" u
     WHERE u.login = _login
       and u.password = crypt(_password, u.password);
-    if users.id is null then
+    if id is null then
         select * into errors from tec.errors_get_id(3);
-    elseif users.active = false then
-        users = null;
+    elseif active = false then
         select * into errors from tec.errors_get_id(4);
     else
-        INSERT INTO tec.token ("id_user") VALUES (users.id) RETURNING value INTO token;
+        INSERT INTO tec.token ("id_user") VALUES (id) RETURNING value INTO token;
     END IF;
 END;
 $function$
 ;
+
+DROP FUNCTION tec."authorization"
