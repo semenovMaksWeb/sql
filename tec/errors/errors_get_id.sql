@@ -10,7 +10,7 @@ CREATE
 AS
 $function$
 begin
-    return query select e.id, e.message, e.status from tec.errors e WHERE e.id = _id;
+    return query select e.id, e.message, e.status from tec.errors e WHERE e.id = _id limit 1;
 END;
 $function$
 ;

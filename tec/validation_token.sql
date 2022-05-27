@@ -1,12 +1,10 @@
-create OR REPLACE function tec.validation_token(_token uuid, OUT errors tec.errors, OUT result boolean)
-    returns record
+create OR REPLACE FUNCTION validation_token(_token uuid, OUT errors tec.errors, out result boolean) returns record
     language plpgsql
 as
 $$
 Declare
     validate_token tec.validate_token;
 begin
-
     select t.id     as token_id,
            t.active as token_active,
            t.date   as token_date,
@@ -18,14 +16,16 @@ begin
              left join tec."user" u on u.id = t.id_user
     where t.value = _token
     limit 1;
-     if validate_token is null or  validate_token.token_active = false or validate_token.token_date < now() then
-        select * into errors from tec.errors_get_id(5);
-        result = false;
-    elseif validate_token.user_active = false then
-        select * into errors from tec.errors_get_id(4);
-        result = false;
-    else
-        result = true;
-    end if;
+    select errors,result
+    into errors, result
+    from tec.check_errors_token(
+            validate_token.token_value,
+            validate_token.token_date,
+            validate_token.token_active,
+            validate_token.user_active
+        );
 END;
+
 $$;
+
+
