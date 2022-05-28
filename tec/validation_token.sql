@@ -1,4 +1,4 @@
-create OR REPLACE FUNCTION validation_token(_token uuid)
+create OR REPLACE FUNCTION tec.validation_token(_token uuid)
     returns tec.errors
     language plpgsql
 as
@@ -18,7 +18,7 @@ begin
              left join tec."user" u on u.id = t.id_user
     where t.value = _token
     limit 1;
-    select cet.errors
+    select *
     into errors
     from tec.check_errors_token(
                  validate_token.token_value,
@@ -26,8 +26,8 @@ begin
                  validate_token.token_active,
                  validate_token.user_active
              ) cet;
+    return errors;
 END;
 $$;
 
 
-DROP FUNCTION validation_token(uuid)
