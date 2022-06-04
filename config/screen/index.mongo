@@ -1,0 +1,103 @@
+use config_system
+db.screen.insertOne({
+    "url": "/",
+    "title": "Главная"
+})
+
+// получить скрин
+db.screen.findOne({url: "/"})
+
+// изменить параметры скрина
+db.screen.updateOne({url: "/"}, {$set: {keywords: null, description: null}})
+// добавить новые компоненты в скрин
+db.screen.updateOne({url: "/"}, {$set: {'components': {
+    1: {
+        id:1,
+        parent_id: null,
+    },
+    2:{
+        id:2,
+        parent_id:1,
+    }
+        }}})
+// обновить 1 компонент в скрине
+db.screen.updateOne({url: "/"}, {$set: {'components.2': {
+            id:2,
+            parent_id:null,
+            type: "button",
+            params:{
+                text: "Привет Мир Тест!",
+                title: "главный компонент"
+            }
+        }}})
+
+// создать таблицу component-type
+db.component_type.insertMany(
+    [
+        {
+            id: 1,
+            name: "button_link"
+        },
+        {
+            id: 2,
+            name: "button"
+        },
+        {
+            id: 3,
+            name: "form"
+        },
+        {
+            id: 4,
+            name: "table"
+        },
+        {
+            id: 5,
+            name: "link"
+        }
+    ]
+    )
+// получить все type components
+db.component_type.find()
+// создать таблицу params
+db.params.insertMany([
+    {
+        name: "paginator_type",
+        type: "select",
+        values: [{value: "server", text: "Серверная пагинация"}, {value: "client", text: "Клиентская пагинация"}],
+        description: "указывает какой тип пагинации у таблицы"
+    },
+    {
+        name: "text",
+        type: "string",
+        description: "текст у компонента"
+    },
+    {
+        name: "title",
+        type: "string",
+        description: "заголовок у компонента"
+    },
+    {
+        name: "url",
+        type: "string",
+        description: "ссылка на другой путь"
+    },
+    {
+        name: "href",
+        type: "string",
+        description: "ссылка на изображение"
+    }
+])
+// получить все params
+db.params.find()
+
+db.event.insertMany([
+    {
+        name: "click",
+        description: "Событие клика",
+    },
+    {
+        name: "focus",
+        description: "Собыите фокуса"
+    }
+])
+db.event.find()
